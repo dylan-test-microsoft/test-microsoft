@@ -1,0 +1,85 @@
+name: README change notification
+
+on:
+  push:
+    paths:
+      - README.md
+  pull_request:
+    paths:
+      - README.md
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    name: Notify bot
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send README change notification
+        env:
+          BOT_NOTIFICATION_WEBHOOK_URL: ${{ secrets.BOT_NOTIFICATION_WEBHOOK_URL }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          python <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+
+          webhook_url = os.environ.get("BOT_NOTIFICATION_WEBHOOK_URL")
+          if not webhook_url:
+              print("::warning::BOT_NOTIFICATION_WEBHOOK_URL secret is not configured; skipping README notification.")
+              sys.exit(0)
+
+          github = json.loads(os.environ["GITHUB_CONTEXT"])
+          event_name = github["event_name"]
+          event = github["event"]
+          repository = github["repository"]
+          actor = github["actor"]
+          server_url = github["server_url"]
+          run_url = f"{server_url}/{repository}/actions/runs/{github['run_id']}"
+
+          if event_name == "pull_request":
+              pull_request = event["pull_request"]
+              subject = f"README.md changed in pull request #{pull_request['number']}"
+              target_url = pull_request["html_url"]
+              ref = f"{pull_request['head']['ref']} -> {pull_request['base']['ref']}"
+          else:
+              subject = f"README.md changed on {github['ref_name']}"
+              target_url = f"{server_url}/{repository}/commit/{github['sha']}"
+              ref = github["ref_name"]
+
+          text = (
+              f"{subject}\n"
+              f"Repository: {repository}\n"
+              f"Ref: {ref}\n"
+              f"Actor: {actor}\n"
+              f"Details: {target_url}\n"
+              f"Workflow run: {run_url}"
+          )
+          payload = {
+              "text": text,
+              "repository": repository,
+              "ref": ref,
+              "actor": actor,
+              "event": event_name,
+              "details_url": target_url,
+              "workflow_run_url": run_url,
+          }
+
+          request = urllib.request.Request(
+              webhook_url,
+              data=json.dumps(payload).encode("utf-8"),
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=15) as response:
+                  print(f"Notification sent with status {response.status}.")
+          except urllib.error.HTTPError as error:
+              print(f"Notification failed with status {error.code}: {error.read().decode('utf-8', 'replace')}", file=sys.stderr)
+              raise
+          PY

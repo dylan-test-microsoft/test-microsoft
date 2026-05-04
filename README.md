@@ -1,1 +1,3 @@
-# test-microsoft
+# Test Microsoft
+
+Repository for Microsoft integration testing experiments.

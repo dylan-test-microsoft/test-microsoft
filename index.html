@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Character Textbox</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    main {
+      width: min(92vw, 720px);
+      padding: 2rem;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 18px 50px rgba(31, 41, 55, 0.14);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 180px;
+      padding: 1rem;
+      border: 2px solid #9ca3af;
+      border-radius: 12px;
+      font: 1rem/1.5 "Segoe UI", "Noto Sans", Arial, sans-serif;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      border-color: #2563eb;
+      outline: 3px solid rgba(37, 99, 235, 0.18);
+    }
+
+    .hint {
+      margin-top: 0.5rem;
+      color: #4b5563;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1rem 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stats li,
+    .preview {
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #f9fafb;
+    }
+
+    .stats li {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .preview {
+      min-height: 90px;
+      padding: 1rem;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #111827;
+        color: #f9fafb;
+      }
+
+      main {
+        background: #1f2937;
+      }
+
+      textarea,
+      .stats li,
+      .preview {
+        background: #111827;
+        color: #f9fafb;
+        border-color: #4b5563;
+      }
+
+      .hint {
+        color: #d1d5db;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Special Character Textbox</h1>
+    <label for="special-text">Enter text with symbols, accents, emoji, or markup characters</label>
+    <textarea
+      id="special-text"
+      name="special-text"
+      autocomplete="off"
+      spellcheck="true"
+      placeholder="Try: &lt;hello&gt; &amp; goodbye, cafe, symbols like # % $, or emoji"
+    ></textarea>
+    <p class="hint">
+      The preview uses safe text rendering so characters such as &lt;, &gt;, &amp;, quotes, and Unicode symbols are preserved.
+    </p>
+
+    <ul class="stats" aria-live="polite">
+      <li><strong id="character-count">0</strong> characters</li>
+      <li><strong id="code-point-count">0</strong> code points</li>
+    </ul>
+
+    <h2>Preview</h2>
+    <div id="preview" class="preview" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const textbox = document.querySelector("#special-text");
+    const preview = document.querySelector("#preview");
+    const characterCount = document.querySelector("#character-count");
+    const codePointCount = document.querySelector("#code-point-count");
+
+    function updatePreview() {
+      const value = textbox.value;
+
+      preview.textContent = value;
+      characterCount.textContent = value.length;
+      codePointCount.textContent = Array.from(value).length;
+    }
+
+    textbox.addEventListener("input", updatePreview);
+    updatePreview();
+  </script>
+</body>
+</html>

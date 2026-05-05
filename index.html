@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="login-card" aria-labelledby="login-title">
+        <p class="eyebrow">Secure access</p>
+        <h1 id="login-title">Welcome back</h1>
+        <p class="intro">Enter your credentials to continue to your account.</p>
+
+        <form id="login-form" class="login-form" novalidate>
+          <div class="field">
+            <label for="username">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              autocomplete="username"
+              aria-describedby="username-error"
+              required
+            >
+            <p class="error-message" id="username-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              aria-describedby="password-error"
+              required
+            >
+            <p class="error-message" id="password-error"></p>
+          </div>
+
+          <button
+            class="login-button"
+            id="login-button"
+            type="submit"
+            aria-describedby="login-status"
+          >
+            <span id="login-button-label">Log in</span>
+          </button>
+
+          <p class="login-status" id="login-status" role="status" aria-live="polite">
+            Enter your credentials to continue.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test Microsoft</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --background: #f5f8ff;
+        --foreground: #172033;
+        --muted: #5f6f89;
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --surface: #ffffff;
+        --border: #dbe4f0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32rem),
+          var(--background);
+        color: var(--foreground);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 2rem;
+      }
+
+      .landing {
+        width: min(100%, 64rem);
+        padding: clamp(2rem, 6vw, 5rem);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 2rem;
+        box-shadow: 0 1.5rem 4rem rgba(23, 32, 51, 0.12);
+      }
+
+      .eyebrow {
+        margin: 0 0 1rem;
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 12ch;
+        margin: 0;
+        font-size: clamp(3rem, 10vw, 6.5rem);
+        line-height: 0.95;
+        letter-spacing: -0.07em;
+      }
+
+      .intro {
+        max-width: 42rem;
+        margin: 1.5rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.125rem, 2vw, 1.35rem);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.85rem 1.25rem;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button.primary {
+        background: var(--primary);
+        color: #ffffff;
+      }
+
+      .button.primary:hover,
+      .button.primary:focus-visible {
+        background: var(--primary-dark);
+      }
+
+      .button.secondary {
+        border: 1px solid var(--border);
+        color: var(--foreground);
+      }
+
+      .button.secondary:hover,
+      .button.secondary:focus-visible {
+        border-color: var(--primary);
+        color: var(--primary-dark);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+        gap: 1rem;
+        margin: 3rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .features li {
+        padding: 1rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+      }
+
+      .features strong {
+        display: block;
+        margin-bottom: 0.35rem;
+      }
+
+      .features span {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="landing" aria-labelledby="landing-title">
+        <p class="eyebrow">Integration testing workspace</p>
+        <h1 id="landing-title">Test Microsoft</h1>
+        <p class="intro">
+          A simple landing page for validating Microsoft integration workflows, repository
+          automation, and deployment checks.
+        </p>
+        <div class="actions" aria-label="Primary actions">
+          <a class="button primary" href="https://www.microsoft.com/">Visit Microsoft</a>
+          <a class="button secondary" href="./README.md">Read project notes</a>
+        </div>
+        <ul class="features" aria-label="Project highlights">
+          <li>
+            <strong>Focused</strong>
+            <span>Small static page that is easy to review and deploy.</span>
+          </li>
+          <li>
+            <strong>Responsive</strong>
+            <span>Adapts cleanly from mobile screens to desktop layouts.</span>
+          </li>
+          <li>
+            <strong>Accessible</strong>
+            <span>Uses semantic landmarks, clear headings, and keyboard-friendly links.</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

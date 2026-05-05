@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="login-shell">
+      <section class="hero-panel" aria-label="Welcome">
+        <div class="brand-mark">R</div>
+        <p class="eyebrow">Welcome back</p>
+        <h1>Sign in to your workspace</h1>
+        <p class="hero-copy">
+          Manage transactions, receipts, and approvals from one secure place.
+        </p>
+      </section>
+
+      <section class="login-card" aria-labelledby="login-title">
+        <div class="card-heading">
+          <p class="eyebrow">Secure access</p>
+          <h2 id="login-title">Login</h2>
+          <p>Use your username and password to continue.</p>
+        </div>
+
+        <form id="login-form" novalidate>
+          <div class="form-field">
+            <label for="username">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              autocomplete="username"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+              minlength="6"
+            />
+          </div>
+
+          <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+
+          <button type="submit">Sign in</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

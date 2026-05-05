@@ -52,7 +52,7 @@
         transition: background 160ms ease, transform 160ms ease;
       }
 
-      .login-button:hover {
+      .login-button:hover:not(:disabled) {
         background: #1d4ed8;
         transform: translateY(-1px);
       }
@@ -64,6 +64,11 @@
 
       .login-button:active {
         transform: translateY(0);
+      }
+
+      .login-button:disabled {
+        background: #94a3b8;
+        cursor: wait;
       }
 
       .login-status {
@@ -78,18 +83,22 @@
     <main class="login-card" aria-labelledby="login-heading">
       <h1 id="login-heading">Welcome back</h1>
       <p>Sign in to continue to your account.</p>
-      <button class="login-button" id="login-button" type="button">
-        Log in
+      <button class="login-button" id="login-button" type="button" aria-describedby="login-status">
+        <span id="login-button-label">Log in</span>
       </button>
       <div class="login-status" id="login-status" role="status" aria-live="polite"></div>
     </main>
 
     <script>
       const loginButton = document.querySelector("#login-button");
+      const loginButtonLabel = document.querySelector("#login-button-label");
       const loginStatus = document.querySelector("#login-status");
 
       loginButton.addEventListener("click", () => {
-        loginStatus.textContent = "Login started...";
+        loginButton.disabled = true;
+        loginButton.setAttribute("aria-busy", "true");
+        loginButtonLabel.textContent = "Logging in...";
+        loginStatus.textContent = "Login started. Please wait.";
       });
     </script>
   </body>

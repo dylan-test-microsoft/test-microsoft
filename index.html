@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rating Button</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --background: #f5f8ff;
+        --foreground: #172033;
+        --muted: #5f6f89;
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --surface: #ffffff;
+        --border: #dbe4f0;
+        --selected: #eff6ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32rem),
+          var(--background);
+        color: var(--foreground);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 2rem;
+      }
+
+      .card {
+        width: min(100%, 38rem);
+        padding: clamp(2rem, 6vw, 4rem);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 2rem;
+        box-shadow: 0 1.5rem 4rem rgba(23, 32, 51, 0.12);
+      }
+
+      .eyebrow {
+        margin: 0 0 1rem;
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.5rem, 8vw, 4.75rem);
+        line-height: 0.95;
+        letter-spacing: -0.06em;
+      }
+
+      .intro {
+        margin: 1.25rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.075rem, 2vw, 1.25rem);
+      }
+
+      .rating {
+        margin-top: 2.25rem;
+      }
+
+      .rating-label {
+        display: block;
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+      }
+
+      .rating-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .rating-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--foreground);
+        cursor: pointer;
+        font: inherit;
+        font-size: 1.15rem;
+        font-weight: 800;
+        transition:
+          background-color 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease,
+          color 160ms ease,
+          transform 160ms ease;
+      }
+
+      .rating-button:hover,
+      .rating-button:focus-visible {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.14);
+        color: var(--primary-dark);
+        outline: none;
+      }
+
+      .rating-button:hover {
+        transform: translateY(-0.125rem);
+      }
+
+      .rating-button.is-selected {
+        background: var(--selected);
+        border-color: var(--primary);
+        color: var(--primary-dark);
+      }
+
+      .rating-button[aria-pressed="true"] {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: #ffffff;
+      }
+
+      .rating-message {
+        min-height: 1.5rem;
+        margin: 1rem 0 0;
+        color: var(--muted);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card" aria-labelledby="rating-title">
+        <p class="eyebrow">Feedback</p>
+        <h1 id="rating-title">Rate your experience</h1>
+        <p class="intro">
+          Select a rating from 1 to 5. Your choice is highlighted immediately.
+        </p>
+
+        <div class="rating" aria-labelledby="rating-label">
+          <span class="rating-label" id="rating-label">Choose a rating</span>
+          <div class="rating-options" role="group" aria-label="Rating from 1 to 5">
+            <button class="rating-button" type="button" data-rating="1" aria-pressed="false">
+              1
+            </button>
+            <button class="rating-button" type="button" data-rating="2" aria-pressed="false">
+              2
+            </button>
+            <button class="rating-button" type="button" data-rating="3" aria-pressed="false">
+              3
+            </button>
+            <button class="rating-button" type="button" data-rating="4" aria-pressed="false">
+              4
+            </button>
+            <button class="rating-button" type="button" data-rating="5" aria-pressed="false">
+              5
+            </button>
+          </div>
+          <p class="rating-message" id="rating-message" aria-live="polite">
+            No rating selected yet.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const ratingButtons = Array.from(document.querySelectorAll(".rating-button"));
+      const ratingMessage = document.querySelector("#rating-message");
+
+      function selectRating(selectedRating) {
+        ratingButtons.forEach((button) => {
+          const rating = Number(button.dataset.rating);
+          const isSelected = rating === selectedRating;
+
+          button.classList.toggle("is-selected", rating <= selectedRating);
+          button.setAttribute("aria-pressed", String(isSelected));
+        });
+
+        ratingMessage.textContent = `You rated this ${selectedRating} out of 5.`;
+      }
+
+      ratingButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          selectRating(Number(button.dataset.rating));
+        });
+      });
+    </script>
+  </body>
+</html>

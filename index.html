@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>test-microsoft rating</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f6f8fb;
+        color: #172033;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+      }
+
+      .rating-card {
+        width: min(90vw, 420px);
+        padding: 32px;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 16px 40px rgba(23, 32, 51, 0.12);
+        text-align: center;
+      }
+
+      .rating-card h1 {
+        margin: 0 0 12px;
+        font-size: 1.75rem;
+      }
+
+      .rating-card p {
+        margin: 0 0 24px;
+        color: #5d667a;
+        line-height: 1.5;
+      }
+
+      .rating-options {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      .rating-options legend {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      .rating-button {
+        border: 2px solid #cbd5e1;
+        border-radius: 999px;
+        padding: 12px 0;
+        background: #ffffff;
+        color: #172033;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;
+        transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .rating-button:hover {
+        border-color: #2563eb;
+        transform: translateY(-1px);
+      }
+
+      .rating-button:focus-visible {
+        outline: 3px solid #93c5fd;
+        outline-offset: 3px;
+      }
+
+      .rating-button[aria-pressed="true"] {
+        border-color: #2563eb;
+        background: #2563eb;
+        color: #ffffff;
+      }
+
+      .rating-status {
+        min-height: 1.25rem;
+        margin-top: 18px;
+        color: #2563eb;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="rating-card" aria-labelledby="rating-heading">
+      <h1 id="rating-heading">Rate your experience</h1>
+      <p>Choose a score from 1 to 5.</p>
+      <fieldset class="rating-options" aria-describedby="rating-status">
+        <legend>Rating from 1 to 5</legend>
+        <button class="rating-button" type="button" data-rating="1" aria-pressed="false" aria-label="Rate 1 out of 5">1</button>
+        <button class="rating-button" type="button" data-rating="2" aria-pressed="false" aria-label="Rate 2 out of 5">2</button>
+        <button class="rating-button" type="button" data-rating="3" aria-pressed="false" aria-label="Rate 3 out of 5">3</button>
+        <button class="rating-button" type="button" data-rating="4" aria-pressed="false" aria-label="Rate 4 out of 5">4</button>
+        <button class="rating-button" type="button" data-rating="5" aria-pressed="false" aria-label="Rate 5 out of 5">5</button>
+      </fieldset>
+      <div class="rating-status" id="rating-status" role="status" aria-live="polite"></div>
+    </main>
+
+    <script>
+      const ratingButtons = document.querySelectorAll(".rating-button");
+      const ratingStatus = document.querySelector("#rating-status");
+
+      ratingButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const selectedRating = button.dataset.rating;
+
+          ratingButtons.forEach((ratingButton) => {
+            ratingButton.setAttribute("aria-pressed", String(ratingButton === button));
+          });
+
+          ratingStatus.textContent = `You rated this ${selectedRating} out of 5.`;
+        });
+      });
+    </script>
+  </body>
+</html>

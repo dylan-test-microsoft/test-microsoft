@@ -141,8 +141,9 @@ test("still blocks blank passwords", () => {
 
 test("password field does not declare a minimum length constraint", () => {
   const html = fs.readFileSync("index.html", "utf8");
-  const passwordInput = html.match(/<input[\s\S]*?id="password"[\s\S]*?\/>/);
+  const inputs = [...html.matchAll(/<input[\s\S]*?\/>/g)].map((match) => match[0]);
+  const passwordInput = inputs.find((input) => input.includes('id="password"'));
 
   assert.ok(passwordInput, "password input exists");
-  assert.equal(passwordInput[0].includes("minlength"), false);
+  assert.equal(passwordInput.includes("minlength"), false);
 });

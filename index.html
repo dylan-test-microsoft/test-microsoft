@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modern Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="login-shell">
+      <section class="hero-panel" aria-label="Welcome">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">LV</span>
+          <span class="brand-name">LawVu</span>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Secure workspace access</p>
+          <h1>Welcome back to your modern legal workspace.</h1>
+          <p>
+            Sign in to manage matters, collaborate with your team, and keep work
+            moving from one polished dashboard.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div>
+            <strong>Enterprise ready</strong>
+            <span>Encrypted sign-in with clear validation feedback.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="login-card" aria-labelledby="login-title">
+        <div class="card-header">
+          <p class="eyebrow">Member login</p>
+          <h2 id="login-title">Sign in to continue</h2>
+          <p>Use your username and password to access your account.</p>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-field">
+            <label for="username">Username</label>
+            <div class="input-wrap">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path
+                    d="M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2Zm0 2.1c-3.8 0-7 2.2-7 5 0 .4.3.7.7.7h12.6c.4 0 .7-.3.7-.7 0-2.8-3.2-5-7-5Z"
+                  />
+                </svg>
+              </span>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                placeholder="Enter your username"
+                minlength="3"
+                required
+              />
+            </div>
+            <p class="field-error" id="usernameError" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path
+                    d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Zm-7-2a2 2 0 1 1 4 0v2h-4V7Zm3 8.7V17a1 1 0 1 1-2 0v-1.3a1.8 1.8 0 1 1 2 0Z"
+                  />
+                </svg>
+              </span>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                minlength="6"
+                required
+              />
+              <button
+                class="password-toggle"
+                type="button"
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                Show
+              </button>
+            </div>
+            <p class="field-error" id="passwordError" aria-live="polite"></p>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" name="remember" />
+              <span>Remember me</span>
+            </label>
+            <a href="#" aria-label="Reset your password">Forgot password?</a>
+          </div>
+
+          <button class="submit-button" type="submit">
+            <span>Sign in</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M13.2 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 1 1-1.4-1.4l4.3-4.3H4a1 1 0 1 1 0-2h13.5l-4.3-4.3a1 1 0 0 1 0-1.4Z"
+              />
+            </svg>
+          </button>
+
+          <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
